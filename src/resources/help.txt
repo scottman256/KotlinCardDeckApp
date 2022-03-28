@@ -1,0 +1,35 @@
+This console application performs simple card deck operatations
+It lets you store up to 10 fifty two card decks in memory, and 8 hands for each deck 
+The names of decks and hands can be up to 10 alpha numeric characters
+
+These are the operations that are available to the user:
+
+create      this command let's you create a new deck of cards, and shuffles that deck
+            [options]
+              deck <name> → creates a deck named <name>
+delete      this command let's you delete decks, hands, the discard pile, and everything
+			[options]
+              -all → this will delete all decks, returning the application to it's original state
+			  deck <name> → this will delete the deck named <name> (if it exists)
+			  discard from deck <name> → this will delete the discard pile from deck <name>, returning cards to deck
+			  hand <handname> from deck <name> → this will delete the hand <handname> from deck <name>
+			  hand -all from deck → this will let you delete all hands from deck <name>
+draw        this command lets your draw cards into hands or the discard pile
+            [options]
+			  draw <X> cards from deck <name> to hand <handname> → draws X (number) cards to hand <handname>
+			  draw <X> cards from deck <name> → draws X (number) cards to the discard pile
+print       this command lets you print decks, hands, and the discard pile to the console
+            [options]
+			  deck <name> → print the cards in deck <name>
+			  discard from deck <name> → prints the cards in the discard pile from deck <name>
+			  hand <handname> from deck <name> → prints the cards in hand <handname>
+			  deck <name> -all → print all cards in deck <name> including the discard pile and all hands
+              -allnames → prints the names of all decks that are currently in memory
+shuffle     this command let's you randomly shuffle the cards in a deck
+            [options]
+			  deck <name> → shuffles the cards in deck <name>
+			  deck <name> -all → shuffles all cards including discard piles and hands into main deck
+			  -all → this will shuffle all decks
+			  -all -all → this will shuffle all cards (inc discard + hands) into each main deck
+help        this is the command you just executed 😀 provides help text for a user
+			  
