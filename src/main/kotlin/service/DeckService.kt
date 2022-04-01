@@ -1,6 +1,8 @@
 package service
 
+import data.Card
 import data.Deck
+import data.Hand
 
 class DeckService {
 
@@ -10,6 +12,12 @@ class DeckService {
         if(ValidationService.isValidDeck(deckName,decks)) {
             decks[deckName] = Deck(deckName)
             println("added new deck: $deckName")
+        }
+    }
+
+    fun addHandIfNeeded(handName : String, deck : Deck) {
+        if (!deck.hands.containsKey(handName)) {
+            deck.hands.put(handName, Hand(mutableListOf<Card>(),handName))
         }
     }
 
@@ -109,7 +117,7 @@ class DeckService {
             val deck = decks[deckName]
             if (ValidationService.doesDeckContainHand(deck!!, handName)) {
                 val hand = deck.hands[handName]
-                println("Cards in Hand: ")
+                println("Cards in Hand $handName: ")
                 for (card in hand!!.cards) {
                     print("${card.rank}${card.suite} ")
                 }
@@ -148,12 +156,31 @@ class DeckService {
         }
     }
 
-    fun drawToHand(numOfCards: Int, deckName: String, handName: String){
-
+    fun drawToHand(numOfCardsString: String, deckName: String, handName: String){
+        val numOfCards = numOfCardsString.toIntOrNull()
+        if (ValidationService.doesValidDeckExist(deckName, decks)
+            && ValidationService.isValidDraw(numOfCards,decks[deckName]!!)) {
+            val deck = decks[deckName]!!
+            addHandIfNeeded(handName,deck)
+            val cards = deck.cards
+            for (i in 0 until numOfCards!!) {
+                deck.hands[handName]!!.cards.add(cards[0])
+                deck.cards.remove(cards[0])
+            }
+        }
     }
 
-    fun drawToDiscard(deckName: String, handName: String) {
-
+    fun drawToDiscard(numOfCardsString: String, deckName: String) {
+        val numOfCards = numOfCardsString.toIntOrNull()
+        if (ValidationService.doesValidDeckExist(deckName, decks)
+            && ValidationService.isValidDraw(numOfCards,decks[deckName]!!)) {
+            val deck = decks[deckName]!!
+            val cards = deck.cards
+            for (i in 0 until numOfCards!!) {
+                deck.discard.add(cards[0])
+                deck.cards.remove(cards[0])
+            }
+        }
     }
 
 }

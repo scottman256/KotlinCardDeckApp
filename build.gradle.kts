@@ -26,6 +26,10 @@ tasks.withType<KotlinCompile>() {
     kotlinOptions.jvmTarget = "1.8"
 }
 
+tasks.named<JavaExec>("run") {
+    standardInput = System.`in`
+}
+
 application {
     mainClassName = "MainKt"
 }

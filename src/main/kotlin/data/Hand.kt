@@ -1,3 +1,3 @@
 package data
 
-data class Hand( val cards: List<Card>, val name: String){ }
+data class Hand( val cards: MutableList<Card>, val name: String){ }

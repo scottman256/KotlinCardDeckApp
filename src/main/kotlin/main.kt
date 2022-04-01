@@ -11,17 +11,17 @@ import service.DeckService
 // This is the main function (use fun to declare functions in kotlin), where the console application will begin execution.
 // The function takes arguments, although for this program no arguments are used.
 // This is an example of "classless code" in Kotlin, as the functions here do not belong to a class.
+
 fun main() {
     println("Welcome to the Kotlin Deck Demo Application!")
     val deckService = DeckService()
  while (true) {
      println("Please enter a command:")
-     val command = readLine()
-     val words = command?.split(" ")!! //null safety
+     var command = readLine()
+     val words = command?.split(" ") ?: continue //null safety
      // when is like the java switch statement on steroids
      // it is more concise but also supports
-
-    when(words[0]) {
+     when(words[0]) {
         "create" -> create(words,deckService)
         "delete" -> delete(words,deckService)
         "shuffle" -> shuffle(words,deckService)
