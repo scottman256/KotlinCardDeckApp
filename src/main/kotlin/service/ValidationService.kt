@@ -6,7 +6,7 @@ import data.Deck
 
 class ValidationService {
     companion object { // You can create static methods in Kotlin by using a companion object.
-        fun isValidLength(name: String): Boolean {
+        fun isValidLength(name: String): Boolean {  // the return type is specified after the method signature
             if (name.length > 10) {
                 println("The name of the deck you wish to add must have 10 or fewer characters");
                 return false;
@@ -45,6 +45,15 @@ class ValidationService {
         fun doesDeckContainHand(deck: Deck, name: String) : Boolean {
             if (!deck.hands.containsKey(name)) {
                 println("Cannot delete $name from deck ${deck.name}, because there is no hand with this name") //in string templates need to use {} for object properties
+                return false;
+            }
+            return true;
+        }
+
+        fun isValidDraw(numOfCards: Int?, deck: Deck) : Boolean {
+            if (numOfCards == null  || numOfCards > deck.cards.count()) {
+                println("Invalid number of cards to draw")
+                return false
             }
             return true;
         }

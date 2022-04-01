@@ -27,7 +27,7 @@ class ShuffleTest {
 
     @Test
     fun testShuffle_allDecksTest() {
-        val words = listOf("shuffle", "deck", "-all")
+        val words = listOf("shuffle", "-all")
         val ds : DeckService = mock()
         shuffle(words, ds)
         verify(ds, times(1)).shuffleAllDecks()
@@ -35,7 +35,7 @@ class ShuffleTest {
 
     @Test
     fun testShuffle_allDecksAllCards() {
-        val words = listOf("shuffle", "deck", "-all", "-all")
+        val words = listOf("shuffle", "-all", "-all")
         val ds : DeckService = mock()
         shuffle(words, ds)
         verify(ds, times(1)).shuffleAllDecksAllCards()
