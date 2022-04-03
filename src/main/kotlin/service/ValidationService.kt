@@ -14,7 +14,7 @@ class ValidationService {
             return true;
         }
 
-        fun doesInvalidDeckExist(name: String, decks: MutableMap<String, Deck>): Boolean {
+        fun doesDeckNotExist(name: String, decks: MutableMap<String, Deck>): Boolean {
             if (decks.containsKey(name)) {
                 println("There is alreay a deck with name $name")  // this is a string template, it lets you embed expressions in strings without concatenation.
                 return false;
@@ -22,7 +22,7 @@ class ValidationService {
             return true;
         }
 
-        fun doesValidDeckExist(name: String, decks: MutableMap<String, Deck>): Boolean {
+        fun doesDeckExist(name: String, decks: MutableMap<String, Deck>): Boolean {
             if (!decks.containsKey(name)) {
                 println("There is not a deck with name $name")  // this is a string template, it lets you embed expressions in strings without concatenation.
                 return false;
@@ -39,7 +39,7 @@ class ValidationService {
         }
 
         fun isValidDeck(name: String, decks: MutableMap<String, Deck>): Boolean {
-            return isValidLength(name) && doesInvalidDeckExist(name, decks) && canAddDeck(decks);
+            return isValidLength(name) && doesDeckNotExist(name, decks) && canAddDeck(decks);
         }
 
         fun doesDeckContainHand(deck: Deck, name: String) : Boolean {

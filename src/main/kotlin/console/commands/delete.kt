@@ -4,7 +4,7 @@ import service.DeckService
 
 fun delete(words: List<String>, deckService: DeckService) {
 
-    // the if statement has a very similar syntax to java...
+
     if(words.size == 2 && words[1] == "-all" )
         deckService.deleteAll()
     else if(words.size == 3 && words[1] == "deck" )

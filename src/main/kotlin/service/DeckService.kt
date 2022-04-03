@@ -11,6 +11,7 @@ class DeckService {
     fun addDeck(deckName : String) {
         if(ValidationService.isValidDeck(deckName,decks)) {
             decks[deckName] = Deck(deckName)
+            // this is a kotlin string template, you can embed variables right into the string
             println("added new deck: $deckName")
         }
     }
@@ -22,7 +23,7 @@ class DeckService {
     }
 
     fun deleteDeck(deckName: String) {
-        if (ValidationService.doesValidDeckExist(deckName, decks)) {
+        if (ValidationService.doesDeckExist(deckName, decks)) {
             decks.remove(deckName)
             println("Successfully deleted deck: $deckName")
         }
@@ -34,7 +35,7 @@ class DeckService {
     }
 
     fun deleteDiscard(deckName: String) {
-        if (ValidationService.doesValidDeckExist(deckName, decks)) {
+        if (ValidationService.doesDeckExist(deckName, decks)) {
             val discard = decks[deckName]!!.discard
             for (card in discard) {
                 decks[deckName]!!.cards.add(card)
@@ -45,7 +46,7 @@ class DeckService {
     }
 
     fun deleteFromHand(deckName : String, handName : String) {
-        if (ValidationService.doesValidDeckExist(deckName, decks)) {
+        if (ValidationService.doesDeckExist(deckName, decks)) {
             val deck = decks[deckName]
             if (ValidationService.doesDeckContainHand(deck!!,handName)) {
                 val hand = deck.hands[handName]
@@ -59,7 +60,7 @@ class DeckService {
     }
 
     fun deleteAllHands(deckName : String) {
-        if (ValidationService.doesValidDeckExist(deckName, decks)) {
+        if (ValidationService.doesDeckExist(deckName, decks)) {
             val deck = decks[deckName]
             for (hand in deck!!.hands) {
                 deleteFromHand(deckName,hand.key)
@@ -70,7 +71,7 @@ class DeckService {
     }
 
     fun shuffle(deckName : String) {
-        if (ValidationService.doesValidDeckExist(deckName, decks)) {
+        if (ValidationService.doesDeckExist(deckName, decks)) {
             val deck = decks[deckName]
             deck!!.shuffle()
             println("$deckName has been shuffled")
@@ -79,7 +80,7 @@ class DeckService {
     }
 
     fun shuffleAllCards(deckName : String) {
-        if (ValidationService.doesValidDeckExist(deckName, decks)) {
+        if (ValidationService.doesDeckExist(deckName, decks)) {
             deleteDiscard(deckName)
             deleteAllHands(deckName)
             val deck = decks[deckName]
@@ -102,7 +103,7 @@ class DeckService {
     }
 
     fun printDeck(deckName : String) {
-        if (ValidationService.doesValidDeckExist(deckName, decks)) {
+        if (ValidationService.doesDeckExist(deckName, decks)) {
             val cards = decks[deckName]!!.cards
             println("Cards: ")
             for (card in cards) {
@@ -113,7 +114,7 @@ class DeckService {
     }
 
     fun printHand(deckName : String, handName : String) {
-        if (ValidationService.doesValidDeckExist(deckName, decks)) {
+        if (ValidationService.doesDeckExist(deckName, decks)) {
             val deck = decks[deckName]
             if (ValidationService.doesDeckContainHand(deck!!, handName)) {
                 val hand = deck.hands[handName]
@@ -127,7 +128,7 @@ class DeckService {
     }
 
     fun printDiscard(deckName: String) {
-        if (ValidationService.doesValidDeckExist(deckName, decks)) {
+        if (ValidationService.doesDeckExist(deckName, decks)) {
             val cards = decks[deckName]!!.discard
             println("Cards in Discard Pile: ")
             for (card in cards) {
@@ -138,7 +139,7 @@ class DeckService {
     }
 
     fun printAllCards(deckName: String) {
-        if (ValidationService.doesValidDeckExist(deckName, decks)) {
+        if (ValidationService.doesDeckExist(deckName, decks)) {
             printDeck(deckName)
             printDiscard(deckName)
             val deck = decks[deckName]
@@ -158,7 +159,7 @@ class DeckService {
 
     fun drawToHand(numOfCardsString: String, deckName: String, handName: String){
         val numOfCards = numOfCardsString.toIntOrNull()
-        if (ValidationService.doesValidDeckExist(deckName, decks)
+        if (ValidationService.doesDeckExist(deckName, decks)
             && ValidationService.isValidDraw(numOfCards,decks[deckName]!!)) {
             val deck = decks[deckName]!!
             addHandIfNeeded(handName,deck)
@@ -172,7 +173,7 @@ class DeckService {
 
     fun drawToDiscard(numOfCardsString: String, deckName: String) {
         val numOfCards = numOfCardsString.toIntOrNull()
-        if (ValidationService.doesValidDeckExist(deckName, decks)
+        if (ValidationService.doesDeckNotExist(deckName, decks)
             && ValidationService.isValidDraw(numOfCards,decks[deckName]!!)) {
             val deck = decks[deckName]!!
             val cards = deck.cards
