@@ -1,28 +1,32 @@
-import data.Card
-import data.Hand
 import console.commands.create
 import console.commands.delete
 import console.commands.draw
 import console.commands.help
 import console.commands.shuffle
 import console.commands.print
+import data.enum.SuiteType
 import service.DeckService
+import data.constants.CLEAR_SCREEN
 
 // This is the main function (use fun to declare functions in kotlin), where the console application will begin execution.
 // The function takes arguments, although for this program no arguments are used.
 // This is an example of "classless code" in Kotlin, as the functions here do not belong to a class.
 
 fun main() {
-    println("Welcome to the Kotlin Deck Demo Application!")
-    val deckService = DeckService()
+    print(CLEAR_SCREEN)
+    println("Welcome to the Kotlin Deck Demo Application!\n")
+    val type = getSuiteType()
+    val deckService = DeckService(type)
  while (true) {
      println("Please enter a command:")
      var command = readLine()
-     val words = command?.split(" ") ?: continue //null safety
+     val words = command?.split(" ") ?: continue // null safety
+
      // when is like the java switch statement on steroids
      // it is more concise but also supports
+
      when(words[0]) {
-        "create" -> create(words,deckService)
+        "create" -> create(words,deckService) // very clean to call methods from other files
         "delete" -> delete(words,deckService)
         "shuffle" -> shuffle(words,deckService)
         "draw" -> draw(words,deckService)
@@ -33,32 +37,30 @@ fun main() {
     }
      println(" ")
  }
-    println("Bye bye!")
+    println("Bye Bye!")
 
 }
 
-fun playground() {
-    val suites = arrayOf('♠','♣', '♥','♦')
-    val ranks = arrayOf("A","2","3","4","5","6","7","8","9","10","J","K","Q")
+// the return type of a method is designated with a colon (:)
+// if no return type is specified, the return type is Unit
+// Similar to Java Void. But it can be used for comparisons...  x = voidMethod() if (x is Unit)
 
-    val list = mutableListOf<Card>()
-    for (rank in ranks)
-        for (suite in suites)
-            list.add(Card(rank,suite))
+fun getSuiteType() : SuiteType {
 
-    list.shuffle()
-    for (card in list)
-        println(card)
+    // This is a multiline string literal, it makes it easy to embed multiple line strings in your code.
+   println("""
+                Please select how you would like the suite to be displayed, character or symbol
+                
+                1 - Character (H for Hearts, S for Space, C for Club, D for Diamond)
+                2 - Symbol (uses unicode, may not display properly on some consoles, like windows command line)
+       
+                Enter your selection: 
+       """.trimIndent())
+        var choice = readLine()?.trim()
 
-    val hand = mutableListOf<Card>()
-    for (i in 0..5)
-    {
-        hand.add(list[0])
-        list.removeAt(0)
+    when(choice) {
+        "1" -> return SuiteType.CHARACTER
+        "2" -> return SuiteType.SYMBOL
+        else -> {println("Invalid selection. Please try again"); return getSuiteType()} // use ; for expressions on same line
     }
-
-    val myHand = Hand(hand,"myHand")
-
-    println(myHand)
-    println(list)
 }

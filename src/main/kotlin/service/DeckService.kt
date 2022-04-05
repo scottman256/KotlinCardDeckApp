@@ -3,14 +3,17 @@ package service
 import data.Card
 import data.Deck
 import data.Hand
+import data.enum.SuiteType
 
-class DeckService {
+fun DeckService() = DeckService(SuiteType.CHARACTER) //factory method instead of secondary constructor
+class DeckService(val type: SuiteType) {
 
-    val decks :MutableMap<String, Deck> = mutableMapOf<String,Deck>() //in Kotlin, most objects are immutable by default, so you have to specifically refrence the mutable version
+    val decks :MutableMap<String, Deck> = mutableMapOf<String,Deck>() //in Kotlin, most objects are immutable by default,
+                                                                    // so you have to specifically reference the mutable version
 
     fun addDeck(deckName : String) {
         if(ValidationService.isValidDeck(deckName,decks)) {
-            decks[deckName] = Deck(deckName)
+            decks[deckName] = Deck(deckName,type)
             // this is a kotlin string template, you can embed variables right into the string
             println("added new deck: $deckName")
         }
