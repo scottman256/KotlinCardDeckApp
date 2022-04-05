@@ -6,14 +6,12 @@ import console.commands.shuffle
 import console.commands.print
 import data.enum.SuiteType
 import service.DeckService
-import data.constants.CLEAR_SCREEN
 
 // This is the main function (use fun to declare functions in kotlin), where the console application will begin execution.
 // The function takes arguments, although for this program no arguments are used.
 // This is an example of "classless code" in Kotlin, as the functions here do not belong to a class.
 
 fun main() {
-    print(CLEAR_SCREEN)
     println("Welcome to the Kotlin Deck Demo Application!\n")
     val type = getSuiteType()
     val deckService = DeckService(type)
