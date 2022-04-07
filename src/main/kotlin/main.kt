@@ -21,7 +21,7 @@ fun main() {
      val words = command?.split(" ") ?: continue // null safety
 
      // when is like the java switch statement on steroids
-     // it is more concise but also supports
+     // it is more concise but also supports using multi value and expressions
 
      when(words[0]) {
         "create" -> create(words,deckService) // very clean to call methods from other files
