@@ -12,5 +12,5 @@ fun shuffle (words: List<String>, deckService : DeckService) {
     else if (words.size == 3 && words[1] == "-all" && words[2] == "-all")
         deckService.shuffleAllDecksAllCards()
     else
-        println("invalid command")
+        println("Invalid Command")
 }

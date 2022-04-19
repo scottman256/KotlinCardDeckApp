@@ -9,5 +9,5 @@ fun draw (words: List<String>, deckService : DeckService) {
     else if (words.size == 6 && words[2] == "cards" && words[3] == "from" && words[4] == "deck" )
         deckService.drawToDiscard(words[1],words[5])
     else
-        println("invalid command")
+        println("Invalid Command")
 }

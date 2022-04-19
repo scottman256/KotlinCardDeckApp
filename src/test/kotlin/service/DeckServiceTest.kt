@@ -171,4 +171,19 @@ class DeckServiceTest {
         assert(outContent.toString().contains("deck1") && outContent.toString().contains("deck2"))
     }
 
+    @Test
+    fun testDrawToHand(){
+        val deckService = DeckService()
+        deckService.addDeck("deck1")
+        deckService.drawToHand("5","deck1","hand")
+        assert(deckService.decks["deck1"]!!.hands.get("hand")!!.cards.count() == 5)
+    }
+
+    @Test
+    fun testDrawToDiscard(){
+        val deckService = DeckService()
+        deckService.addDeck("deck1")
+        deckService.drawToDiscard("5","deck1")
+        assert(deckService.decks["deck1"]!!.discard.count() == 5)
+    }
 }

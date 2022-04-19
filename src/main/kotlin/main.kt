@@ -24,8 +24,8 @@ fun main() {
      // it is more concise but also supports
 
      when(words[0]) {
-        "create" -> create(words,deckService) // very clean to call methods from other files
-        "delete" -> delete(words,deckService)
+        "create","add" -> create(words,deckService) // very clean to call methods from other files
+        "delete","remove" -> delete(words,deckService)
         "shuffle" -> shuffle(words,deckService)
         "draw" -> draw(words,deckService)
         "print" -> print(words,deckService)

@@ -2,8 +2,7 @@ package data
 
 import data.enum.SuiteType
 
-fun Deck(name: String) =  Deck(name,SuiteType.CHARACTER)
-class Deck (val name: String, val type : SuiteType) {
+class Deck (val name: String, val type : SuiteType = SuiteType.CHARACTER) {
     val cards :MutableList<Card> = mutableListOf()
     val discard: MutableList<Card> = mutableListOf()
     val hands: MutableMap<String, Hand> = mutableMapOf()
